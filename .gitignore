@@ -1,7 +1,9 @@
 .DS_Store
 target/
-imager_resizer/Pip_Coin.png
+image_resizer/Pip_Coin.png
 .gitignore
-imager_resizer/Pip_Coin_2x.png
-imager_resizer/Pip_Coin_1x.png
-.gitignore
+image_resizer/Pip_Coin_2x.png
+image_resizer/Pip_Coin_1x.png
+image_resizer/Pip_Coin_3x.png
+image_resizer/sparkle.png
+output/
