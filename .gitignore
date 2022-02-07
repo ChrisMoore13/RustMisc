@@ -1,1 +1,7 @@
 .DS_Store
+target/
+imager_resizer/Pip_Coin.png
+.gitignore
+imager_resizer/Pip_Coin_2x.png
+imager_resizer/Pip_Coin_1x.png
+.gitignore
