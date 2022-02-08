@@ -3,19 +3,26 @@ extern crate image;
 use std::env;
 use std::path::Path;
 use std::fs::create_dir;
+use glob::glob;
 
 /// Main function - currently takes a single filepath
 fn main() {
     let mut args = env::args().skip(1);
-    assert_eq!(args.len(), 2, "Too many arguments!");
-    let file_location = args.next().unwrap();
+    assert_eq!(args.len(), 1, "Too many arguments!");
     let output_folder = args.next().unwrap();
+
     let dir_exists: bool = Path::new(&output_folder).is_dir();
     if !dir_exists {
         create_dir(&output_folder).expect("Couldn't create directory");
         println!("Created directory");
     }
-    create_smaller_versions(&file_location, &output_folder);
+    for entry in glob("*.png").expect("Failed to read glob pattern") {
+        match entry {
+            Ok(path) => create_smaller_versions(&path.into_os_string().into_string().unwrap()
+            , &output_folder),
+            Err(e) => println!("{:?}", e),
+        }
+    }
 }
 
 /// Spawns three different sizes of png used as input in target folder
@@ -49,6 +56,3 @@ fn create_smaller_versions(file: &str, output: &str) {
     let three_file = format!("{}/{}{}", output, file_base, _three_x);
     img.save(three_file).expect("Saving x3 image failed")
 }
-
-// TODO: Switch main to taking a input folder rather than single file
-// TODO: Make it concurrent via crossbeam
